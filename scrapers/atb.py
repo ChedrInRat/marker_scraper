@@ -1,6 +1,6 @@
 from typing import Generator
-from db import Product
 from .scraper import SyncScraper 
+from models import Product
 import bs4
 
 

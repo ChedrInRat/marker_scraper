@@ -4,8 +4,7 @@ from typing import Any, AsyncGenerator, Generator
 from abc import ABC, abstractmethod
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from db import Product 
-
+from models import Product
 
 class ScraperBase(ABC):
 
