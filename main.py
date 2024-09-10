@@ -1,7 +1,7 @@
 from scrapers import ATB
 
 def main():
-    ATB().test()
+    next(ATB().get_product())
 
 if __name__ == '__main__':
     main()

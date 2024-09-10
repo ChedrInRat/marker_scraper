@@ -1,9 +1,11 @@
-from .scraper import Scraper
+from typing import Generator
+from db import Product
+from .scraper import SyncScraper 
 import bs4
 
 
 
-class ATB(Scraper):
+class ATB(SyncScraper):
 
     name = 'ATB'
     start_url = 'https://www.atbmarket.com'
@@ -12,7 +14,7 @@ class ATB(Scraper):
     def __init__(self) -> None:
         super().__init__()
     
-    def get_product(self):
+    def get_product(self) -> Generator[Product]:
         for product_url in self.get_product_url():
             url = self.start_url + product_url
             page = self.get_page(self.start_url + product_url)
@@ -20,11 +22,9 @@ class ATB(Scraper):
 
             name = soup.select_one('h1').text
             price = float(soup.select_one('div.product-price span').text)
-            code = int(soup.select_one('span.custom-tag strong').text)
-            product = {'url':url,
-                       'name':name,
-                       'price':price,
-                       'code':code}
+
+            product = Product(url=url, name=name, price=price)
+
             yield product
     
 
@@ -101,8 +101,7 @@ class ATB(Scraper):
         for category in self.get_categories():
             if category:
                 yield category 
-
-
+    
     def get_categories(self):
         '''
         Returns a List[bs4 objects] with categories
@@ -118,5 +117,9 @@ class ATB(Scraper):
         return categories
     
 
-    def test(self):
-        print(next(self.get_product()))
+
+if __name__ == '__main__':
+    scraper = ATB()
+
+    for product in scraper.get_product():
+        print(product)
