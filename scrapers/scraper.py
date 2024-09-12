@@ -71,7 +71,7 @@ class SyncScraper(ScraperBase):
 
 
     @abstractmethod
-    def get_product(self) -> Generator[Product]:
+    def get_product(self) -> Generator[Product, None, None]:
         pass
 
 
@@ -79,5 +79,5 @@ class AsyncScraper(ScraperBase):
     
 
     @abstractmethod
-    async def get_product(self) -> AsyncGenerator[Product]:
+    async def get_product(self) -> AsyncGenerator[Product, None]:
         pass

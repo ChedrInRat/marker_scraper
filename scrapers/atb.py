@@ -14,7 +14,7 @@ class ATB(SyncScraper):
     def __init__(self) -> None:
         super().__init__()
     
-    def get_product(self) -> Generator[Product]:
+    def get_product(self) -> Generator[Product, None, None]:
         for product_url in self.get_product_url():
             url = self.start_url + product_url
             page = self.get_page(self.start_url + product_url)
